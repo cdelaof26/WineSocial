@@ -8,9 +8,13 @@ en Java con SpringBoot.
 
 Es necesario cambiar ```server-domain``` por la IP o dirección del servidor 
 ejecutando MariaDB en el archivo [```application.properties```](src/main/resources/application.properties)
+y agregar el nombre de usuario y contraseña.
 
 
 # Historial de versiones
+
+#### v0.0.2_1 CRUD de usuarios
+- Agregadas operaciones de creación, actualización y eliminación
 
 #### v0.0.2 Listar usuarios
 - Conexión con la base de datos

@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import java.sql.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
 
 /**
@@ -36,11 +38,11 @@ public class User extends RepresentationModel<User> {
     private String username;
     
     /**
-     * Birth date, date format is YYYY-MM-DD
+     * Birth date
      */
-    @NotEmpty(message = "La fecha de nacimiento es obligatoria")
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Schema(description = "Fecha de nacimiento del usuario", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String birthdate;
+    private Date birthdate;
     
     /**
      * Email, it must have between 1 and 128 characters (inclusive)
@@ -62,7 +64,7 @@ public class User extends RepresentationModel<User> {
      * @param birthdate the user's birth date
      * @param email the user's email
      */
-    public User(Integer id, String username, String birthdate, String email) {
+    public User(Integer id, String username, Date birthdate, String email) {
         this.id = id;
         this.username = username;
         this.birthdate = birthdate;
@@ -85,11 +87,11 @@ public class User extends RepresentationModel<User> {
         this.username = username;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -102,17 +104,34 @@ public class User extends RepresentationModel<User> {
     }
 
     @Override
+    public String toString() {
+        if (id != null)
+            return String.format("user:%d:%s:%s:%s", id, username, birthdate.toString(), email);
+        return String.format("user:NOID:%s:%s:%s", username, birthdate.toString(), email);
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof User usr)
-            return username != null && username.equals(usr.username);
+            return email != null && email.equals(usr.email);
         return false;
     }
 
     @Override
     public int hashCode() {
-        if (username == null)
+        if (email == null)
             return Integer.MIN_VALUE;
         
-        return username.hashCode();
+        return email.hashCode();
+    }
+    
+    /**
+     * Copies all the information to this object given another
+     * @param user the user to copy from
+     */
+    public void copyFrom(User user) {
+        this.username = user.username;
+        this.birthdate = user.birthdate;
+        this.email = user.email;
     }
 }

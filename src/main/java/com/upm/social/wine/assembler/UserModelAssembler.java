@@ -1,7 +1,7 @@
 package com.upm.social.wine.assembler;
 
 import com.upm.social.wine.controller.UserController;
-import com.upm.social.wine.entity.User;
+import com.upm.social.wine.entity.ReducedUser;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
  * @author cristopher
  */
 @Component
-public class UserModelAssembler extends RepresentationModelAssemblerSupport<User, User> {
+public class UserModelAssembler extends RepresentationModelAssemblerSupport<ReducedUser, ReducedUser> {
     public UserModelAssembler() {
-        super(UserController.class, User.class);
+        super(UserController.class, ReducedUser.class);
     }
     
     @Override
-    public User toModel(User entity) {
+    public ReducedUser toModel(ReducedUser entity) {
         entity.add(
             WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(UserController.class).getUser(entity.getId())

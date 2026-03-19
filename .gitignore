@@ -36,3 +36,4 @@ build/
 
 ### Miscellaneous ###
 db/wdb.mwb.bak
+src/main/resources/application.properties

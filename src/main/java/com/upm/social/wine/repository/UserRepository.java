@@ -18,4 +18,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 
      */
     public Page<User> findByUsernameStartsWith(@Param("startsWith") String startsWith, Pageable pageable);
+    
+    /**
+     * Checks if a user exist given its email
+     * @param email the email
+     * @return whether it exists or not
+     */
+    public boolean existsByEmail(String email);
 }
