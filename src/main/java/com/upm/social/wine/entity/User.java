@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import java.lang.reflect.Field;
 import java.sql.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
@@ -34,7 +35,7 @@ public class User extends RepresentationModel<User> {
      * The username, it must have between 1 and 128 characters (inclusive)
      */
     @NotEmpty(message = "El nombre es obligatorio")
-    @Schema(description = "Identificador autoincremental del usuario", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Nombre del usuario", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
     
     /**
@@ -127,11 +128,14 @@ public class User extends RepresentationModel<User> {
     
     /**
      * Copies all the information to this object given another
-     * @param user the user to copy from
+     * @param o the user to copy from
      */
-    public void copyFrom(User user) {
-        this.username = user.username;
-        this.birthdate = user.birthdate;
-        this.email = user.email;
+    public void copyFrom(User o) {
+        for (Field f : this.getClass().getDeclaredFields())
+            try {
+                f.set(this, f.get(o));
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                System.getLogger(this.getClass().getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
     }
 }

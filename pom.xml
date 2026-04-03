@@ -73,6 +73,12 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	 <dependency>
+	  <groupId>org.springdoc</groupId>
+	  <artifactId>springdoc-openapi</artifactId>
+	  <version>3.0.2</version>
+	  <type>pom.sha512</type>
+	 </dependency>
 	</dependencies>
 
 	<build>

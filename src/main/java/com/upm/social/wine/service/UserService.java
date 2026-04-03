@@ -33,7 +33,7 @@ public class UserService {
     /**
      * Fetches an user given its id
      * @param id the id
-     * @return whether an user given an email exist
+     * @return whether an user exists or not
      */
     public boolean existsById(Integer id) {
         return repository.existsById(id);
@@ -42,7 +42,7 @@ public class UserService {
     /**
      * Fetches an user given its email
      * @param email the email
-     * @return whether an user given an email exist
+     * @return whether an user exists or not
      */
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);

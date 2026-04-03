@@ -1,13 +1,13 @@
 package com.upm.social.wine.controller;
 
-import com.upm.social.wine.exception.UserExistsException;
+import com.upm.social.wine.exception.user.UserExistsException;
 import com.upm.social.wine.assembler.UserModelAssembler;
 import com.upm.social.wine.entity.ReducedUser;
-import com.upm.social.wine.exception.UserNotFoundException;
+import com.upm.social.wine.exception.user.UserNotFoundException;
 import com.upm.social.wine.service.UserService;
 import java.util.List;
 import com.upm.social.wine.entity.User;
-import com.upm.social.wine.exception.InvalidUserAge;
+import com.upm.social.wine.exception.user.InvalidUserAge;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.time.Period;

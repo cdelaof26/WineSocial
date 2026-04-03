@@ -2,12 +2,12 @@
 
 Tabla de identificadores
 
-| Nombre | Significado  |
-|--------|--------------|
-| uidX   | user id X    |
-| ridX   | request id X |
-
-X son números
+| Nombre | Significado |
+|--------|-------------|
+| uidX   | user idX    |
+| bidX   | winery idX  |
+| widX   | wine idX    |
+| ridX   | request idX |
 
 ### user
 
@@ -18,6 +18,16 @@ X son números
 [GET] /users/{uid} - Obtener un usuario
 [PUT] /users/{uid} - Actualizar un usuario
 [DEL] /users/{uid} - Eliminar un usuario
+</pre>
+
+### winery
+<pre>
+ [GET] /wineries - Obtener todas las bodegas
+[POST] /wineries - Crear una bodega
+
+[GET] /wineries/{uid} - Obtener una bodega
+[PUT] /wineries/{uid} - Actualizar una bodega
+[DEL] /wineries/{uid} - Eliminar una bodega
 </pre>
 
 ### wine
