@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * The user service
+ * User service
  * @author cristopher
  */
 @Service

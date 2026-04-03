@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import java.lang.reflect.Field;
 import java.sql.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
@@ -124,18 +123,5 @@ public class User extends RepresentationModel<User> {
             return Integer.MIN_VALUE;
         
         return email.hashCode();
-    }
-    
-    /**
-     * Copies all the information to this object given another
-     * @param o the user to copy from
-     */
-    public void copyFrom(User o) {
-        for (Field f : this.getClass().getDeclaredFields())
-            try {
-                f.set(this, f.get(o));
-            } catch (IllegalArgumentException | IllegalAccessException ex) {
-                System.getLogger(this.getClass().getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
     }
 }

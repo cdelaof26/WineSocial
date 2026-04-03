@@ -1,7 +1,7 @@
 package com.upm.social.wine.service.wine;
 
-import com.upm.social.wine.entity.wine.Winery;
-import com.upm.social.wine.repository.wine.WineryRepository;
+import com.upm.social.wine.entity.wine.PDO;
+import com.upm.social.wine.repository.wine.PDORepository;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,14 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * Winery service
+ * PDO service
  * @author cristopher
  */
 @Service
-public class WineryService {
-    private final WineryRepository repository;
+public class PDOService {
+    private final PDORepository repository;
     
-    public WineryService(WineryRepository repository) {
+    public PDOService(PDORepository repository) {
         this.repository = repository;
     }
     
@@ -25,7 +25,7 @@ public class WineryService {
      * @param id the id
      * @return a winery wrapped in Optional object
      */
-    public Optional<Winery> searchWineryById(Integer id) {
+    public Optional<PDO> searchPDOById(Integer id) {
         return repository.findById(id);
     }
     
@@ -54,7 +54,7 @@ public class WineryService {
      * @param size the size of the page
      * @return all the wineries in the page
      */
-    public Page<Winery> fetchWineries(String startsWith, int page, int size) {
+    public Page<PDO> fetchWineries(String startsWith, int page, int size) {
         Pageable paginable = PageRequest.of(page, size);
         
         if (startsWith != null)
@@ -68,7 +68,7 @@ public class WineryService {
      * @param winery the winery
      * @return a new winery object taken from the db
      */
-    public Winery saveWinery(Winery winery) {
+    public PDO savePDO(PDO winery) {
         return repository.save(winery);
     }
     
@@ -76,7 +76,7 @@ public class WineryService {
      * Removes a winery given its id
      * @param id the id
      */
-    public void dropWinery(Integer id) {
+    public void dropPDO(Integer id) {
         repository.deleteById(id);
     }
 }

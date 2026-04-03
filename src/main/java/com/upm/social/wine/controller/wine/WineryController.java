@@ -1,11 +1,12 @@
 package com.upm.social.wine.controller.wine;
 
 import com.upm.social.wine.assembler.wine.WineryModelAssembler;
+import com.upm.social.wine.entity.GeneralUtilities;
 import java.util.List;
 import com.upm.social.wine.entity.wine.Winery;
-import com.upm.social.wine.exception.wine.WineryExistsException;
-import com.upm.social.wine.exception.wine.WineryNotFoundException;
-import com.upm.social.wine.exception.wine.WineryPostalTooLongException;
+import com.upm.social.wine.exception.FieldTooLongException;
+import com.upm.social.wine.exception.ObjectExistsException;
+import com.upm.social.wine.exception.ObjectNotFoundException;
 import com.upm.social.wine.service.wine.WineryService;
 import jakarta.validation.Valid;
 import java.util.Optional;
@@ -54,13 +55,13 @@ public class WineryController {
         @RequestParam(defaultValue = "0", required = false) int page,
         @RequestParam(defaultValue = "2", required = false) int size
     ) {
-        logger.debug("Fetch winerys: %s", self.toUri().toString());
+        logger.debug("Fetch wineries: %s", self.toUri().toString());
         logger.debug("Starting with %s", startsWith);
         logger.debug("In page %d of %d elements", page, size);
         
-        Page<Winery> winerys = service.fetchWineries(startsWith, page, size);
+        Page<Winery> wineries = service.fetchWineries(startsWith, page, size);
 
-        return ResponseEntity.ok(pagedResourcesAssembler.toModel(winerys, wineryModelAssembler));
+        return ResponseEntity.ok(pagedResourcesAssembler.toModel(wineries, wineryModelAssembler));
     }
     
     @GetMapping(value = "/{id}", produces = { "application/json" })
@@ -69,7 +70,7 @@ public class WineryController {
         
         Optional<Winery> _winery = service.searchWineryById(id);
         if (_winery.isEmpty())
-            throw new WineryNotFoundException(id);
+            throw new ObjectNotFoundException("La bodega", id);
         
         Winery winery = _winery.get();
         logger.debug("Winery found %s", winery);
@@ -78,15 +79,22 @@ public class WineryController {
         return ResponseEntity.ok(winery);
     }
     
+    private void validateFields(Winery winery) {
+        if (winery.getName().length() > 128)
+            throw new FieldTooLongException(winery.getName().length());
+        
+        if (winery.getPostalAddress() != null && winery.getPostalAddress().length() > 512)
+            throw new FieldTooLongException("La dirección postal", winery.getPostalAddress().length(), 512);
+    }
+    
     @PostMapping()
     public ResponseEntity<List<Winery>> createWinery(@Valid @RequestBody Winery newWinery) {
         logger.debug("Creating winery %s...", newWinery);
         
         if (service.existsByName(newWinery.getName()))
-            throw new WineryExistsException(newWinery.getName());
+            throw new ObjectExistsException(newWinery.getName());
         
-        if (newWinery.getPostalAddress() != null && newWinery.getPostalAddress().length() > 512)
-            throw new WineryPostalTooLongException(newWinery.getPostalAddress().length());
+        validateFields(newWinery);
         
         Winery winery = service.saveWinery(newWinery);
         return ResponseEntity.created(self.slash(winery.getId()).toUri()).build();
@@ -98,13 +106,14 @@ public class WineryController {
         
         Optional<Winery> _winery = service.searchWineryById(id);
         if (_winery.isEmpty())
-            throw new WineryNotFoundException(id);
+            throw new ObjectNotFoundException("La bodega", id);
         
         Winery winery = _winery.get();
         logger.debug("Winery found %s", winery);
         logger.debug("Winery update %s", newWinery);
         
-        winery.copyFrom(newWinery);
+        GeneralUtilities.copyAToB(newWinery, winery);
+        validateFields(winery);
         service.saveWinery(winery);
         
         return ResponseEntity.noContent().build();
@@ -119,6 +128,6 @@ public class WineryController {
             return ResponseEntity.noContent().build();
         }
         
-        throw new WineryNotFoundException(id);
+        throw new ObjectNotFoundException("La bodega", id);
     }
 }

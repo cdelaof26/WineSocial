@@ -12,39 +12,39 @@ import jakarta.validation.constraints.NotEmpty;
 import org.springframework.hateoas.RepresentationModel;
 
 /**
- * Winery model
+ * PDO model
  * @author cristopher
  */
 @Entity
-@Table(name = "winery", schema = "wdb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "pdo", schema = "wdb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Winery extends RepresentationModel<Winery> {
+public class PDO extends RepresentationModel<PDO> {
     /**
      * Auto incremental id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "Identificador autoincremental de la bodega", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Identificador autoincremental de la denominación de origen", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Integer id;
     
     /**
-     * Wine name, it must have between 1 and 128 characters (inclusive)
+     * PDO name, it must have between 1 and 128 characters (inclusive)
      */
     @NotEmpty(message = "El nombre es obligatorio")
-    @Schema(description = "Nombre de la bodega", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Nombre de la denominación de origen", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
     
-    @Schema(description = "Dirección postal de la bodega", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Dirección postal de la denominación de origen", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String postalAddress;
 
-    public Winery() { }
+    public PDO() { }
 
-    public Winery(Integer id, String name) {
+    public PDO(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Winery(Integer id, String name, String postalAddress) {
+    public PDO(Integer id, String name, String postalAddress) {
         this.id = id;
         this.name = name;
         this.postalAddress = postalAddress;
@@ -83,7 +83,7 @@ public class Winery extends RepresentationModel<Winery> {
     
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Winery usr)
+        if (obj instanceof PDO usr)
             return name != null && name.equals(usr.name);
         return false;
     }

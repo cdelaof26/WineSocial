@@ -1,12 +1,14 @@
 package com.upm.social.wine.controller;
 
-import com.upm.social.wine.exception.user.UserExistsException;
 import com.upm.social.wine.assembler.UserModelAssembler;
 import com.upm.social.wine.entity.ReducedUser;
-import com.upm.social.wine.exception.user.UserNotFoundException;
 import com.upm.social.wine.service.UserService;
 import java.util.List;
 import com.upm.social.wine.entity.User;
+import com.upm.social.wine.entity.GeneralUtilities;
+import com.upm.social.wine.exception.FieldTooLongException;
+import com.upm.social.wine.exception.ObjectExistsException;
+import com.upm.social.wine.exception.ObjectNotFoundException;
 import com.upm.social.wine.exception.user.InvalidUserAge;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
@@ -72,7 +74,7 @@ public class UserController {
         
         Optional<User> _user = service.searchUserById(id);
         if (_user.isEmpty())
-            throw new UserNotFoundException(id);
+            throw new ObjectNotFoundException("El usuario", id);
         
         User user = _user.get();
         logger.debug("User found %s", user);
@@ -81,18 +83,28 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
     
+    private void validateFields(User user) {
+        if (user.getUsername().length() > 128)
+            throw new FieldTooLongException(user.getUsername().length());
+        
+        if (user.getEmail().length() > 128)
+            throw new FieldTooLongException("El correo", user.getEmail().length());
+        
+        Period period = Period.between(user.getBirthdate().toLocalDate(), LocalDate.now());
+        
+        int age = period.getYears();
+        if (age < 18)
+            throw new InvalidUserAge(age);
+    }
+    
     @PostMapping()
     public ResponseEntity<List<User>> createUser(@Valid @RequestBody User newUser) {
         logger.debug("Creating user %s...", newUser);
         
         if (service.existsByEmail(newUser.getEmail()))
-            throw new UserExistsException(newUser.getEmail());
+            throw new ObjectExistsException("El correo", newUser.getEmail());
         
-        Period period = Period.between(newUser.getBirthdate().toLocalDate(), LocalDate.now());
-        
-        int age = period.getYears();
-        if (age < 18)
-            throw new InvalidUserAge(age);
+        validateFields(newUser);
         
         User user = service.saveUser(newUser);
         return ResponseEntity.created(self.slash(user.getId()).toUri()).build();
@@ -104,13 +116,14 @@ public class UserController {
         
         Optional<User> _user = service.searchUserById(id);
         if (_user.isEmpty())
-            throw new UserNotFoundException(id);
+            throw new ObjectNotFoundException("El usuario", id);
         
         User user = _user.get();
         logger.debug("User found %s", user);
         logger.debug("User update %s", newUser);
         
-        user.copyFrom(newUser);
+        GeneralUtilities.copyAToB(newUser, user);
+        validateFields(newUser);
         service.saveUser(user);
         
         return ResponseEntity.noContent().build();
@@ -125,6 +138,6 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
         
-        throw new UserNotFoundException(id);
+        throw new ObjectNotFoundException("El usuario", id);
     }
 }

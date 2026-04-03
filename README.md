@@ -13,6 +13,11 @@ y agregar el nombre de usuario y contraseña.
 
 # Historial de versiones
 
+#### v0.0.4 CRUD de denominaciones de origen
+- Implementada validación de logitudes en campos
+- Exceptions refactory
+- TODO: delete ```WineryExceptionAdvice``` and refactor ```UserExceptionAdvice```
+
 #### v0.0.3 CRUD de bodegas
 
 #### v0.0.2_1 CRUD de usuarios

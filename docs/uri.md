@@ -7,6 +7,7 @@ Tabla de identificadores
 | uidX   | user idX    |
 | bidX   | winery idX  |
 | widX   | wine idX    |
+| pidX   | pdo idX     |
 | ridX   | request idX |
 
 ### user
@@ -21,13 +22,25 @@ Tabla de identificadores
 </pre>
 
 ### winery
+
 <pre>
  [GET] /wineries - Obtener todas las bodegas
 [POST] /wineries - Crear una bodega
 
-[GET] /wineries/{uid} - Obtener una bodega
-[PUT] /wineries/{uid} - Actualizar una bodega
-[DEL] /wineries/{uid} - Eliminar una bodega
+[GET] /wineries/{bid} - Obtener una bodega
+[PUT] /wineries/{bid} - Actualizar una bodega
+[DEL] /wineries/{bid} - Eliminar una bodega
+</pre>
+
+### pdo
+
+<pre>
+ [GET] /pdos - Obtener todas las denominaciones de origen
+[POST] /pdos - Crear una denominación de origen
+
+[GET] /pdos/{pid} - Obtener una denominación de origen
+[PUT] /pdos/{pid} - Actualizar una denominación de origen
+[DEL] /pdos/{pid} - Eliminar una denominación de origen
 </pre>
 
 ### wine
@@ -36,9 +49,9 @@ Tabla de identificadores
  [GET] /wines - Obtener todos los vinos
 [POST] /wines - Crear un vino
 
-[GET] /wines/{uid} - Obtener un vino
-[PUT] /wines/{uid} - Actualizar un vino
-[DEL] /wines/{uid} - Eliminar un vino
+[GET] /wines/{wid} - Obtener un vino
+[PUT] /wines/{wid} - Actualizar un vino
+[DEL] /wines/{wid} - Eliminar un vino
 </pre>
 
 ### user-wine
