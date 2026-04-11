@@ -13,6 +13,8 @@ y agregar el nombre de usuario y contraseña.
 
 # Historial de versiones
 
+#### v0.0.5 CRUD tipos de vino
+
 #### v0.0.4 CRUD de denominaciones de origen
 - Implementada validación de logitudes en campos
 - Exceptions refactory

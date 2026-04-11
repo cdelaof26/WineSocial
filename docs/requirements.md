@@ -29,7 +29,7 @@ en el servicio y se deberá devolver un mensaje de error.
 filtrada por patrón de nombre (eg. Buscar todos los usuarios que contengan “Mar”
 en su nombre, “Mario”, “Maria”…etc.).1
 
-* [ ] Obtener una lista de todos los usuarios en la aplicación permitiendo limitar la
+* [x] Obtener una lista de todos los usuarios en la aplicación permitiendo limitar la
 cantidad de información obtenida por cantidad (e.g. los X primeros, los elementos
 entre X e Y, etc.).
 
@@ -48,7 +48,7 @@ poder buscar vinos de un usuario por característica/s de vinos: tipo de vino, u
 origen, año…etc, o la combinación de varios de estos filtros.
 
 * [ ] Un usuario puede comenzar a seguir otros usuarios. Esta operación NO será
-inmediata; debe generar una solicitud de seguimiento que el usuario a seguie
+inmediata; debe generar una solicitud de seguimiento que el usuario a seguir
 debe aceptar o rechazar.
 
 * [ ] Un usuario puede dejar de seguir a usuarios que siga.

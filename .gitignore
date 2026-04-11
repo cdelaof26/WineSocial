@@ -37,3 +37,4 @@ build/
 ### Miscellaneous ###
 db/wdb.mwb.bak
 src/main/resources/application.properties
+docs/_sample.md

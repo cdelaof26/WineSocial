@@ -12,42 +12,42 @@ import jakarta.validation.constraints.NotEmpty;
 import org.springframework.hateoas.RepresentationModel;
 
 /**
- * PDO model
+ * Wine type model
  * @author cristopher
  */
 @Entity
-@Table(name = "pdo", schema = "wdb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "wine_type", schema = "wdb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PDO extends RepresentationModel<PDO> {
+public class WineType extends RepresentationModel<WineType> {
     /**
      * Auto incremental id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "Identificador autoincremental de la denominación de origen", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Identificador autoincremental del tipo de vino", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Integer id;
     
     /**
-     * PDO name, it must have between 1 and 128 characters (inclusive)
+     * WineType name, it must have between 1 and 128 characters (inclusive)
      */
     @NotEmpty(message = "El nombre es obligatorio")
-    @Schema(description = "Nombre de la denominación de origen", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Nombre del tipo de vino", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
     
-    @Schema(description = "Dirección postal de la denominación de origen", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    private String postalAddress;
+    @Schema(description = "Descripción del tipo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private String description;
 
-    public PDO() { }
+    public WineType() { }
 
-    public PDO(Integer id, String name) {
+    public WineType(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public PDO(Integer id, String name, String postalAddress) {
+    public WineType(Integer id, String name, String postalAddress) {
         this.id = id;
         this.name = name;
-        this.postalAddress = postalAddress;
+        this.description = postalAddress;
     }
 
     public Integer getId() {
@@ -66,24 +66,24 @@ public class PDO extends RepresentationModel<PDO> {
         this.name = name;
     }
 
-    public String getPostalAddress() {
-        return postalAddress;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPostalAddress(String postalAddress) {
-        this.postalAddress = postalAddress;
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     @Override
     public String toString() {
         if (id != null)
-            return String.format("pdo:%d:%s", id, name);
-        return String.format("pdo:NOID:%s", name);
+            return String.format("winetype:%d:%s", id, name);
+        return String.format("winetype:NOID:%s", name);
     }
     
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PDO usr)
+        if (obj instanceof WineType usr)
             return name != null && name.equals(usr.name);
         return false;
     }

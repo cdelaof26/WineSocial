@@ -2,6 +2,7 @@ package com.upm.social.wine.exception;
 
 /**
  * RuntimeException thrown when an object is not found by its ID
+ * @see FormattedMessageRuntimeException
  * @author cristopher
  */
 public class ObjectNotFoundException extends FormattedMessageRuntimeException {
@@ -10,6 +11,7 @@ public class ObjectNotFoundException extends FormattedMessageRuntimeException {
      * "{@code entityName} '{@code id}' no existe"
      * @param entityName the name of the entity
      * @param id the id
+     * @see FormattedMessageRuntimeException
      */
     public ObjectNotFoundException(String entityName, Number id) {
         super("%s '%d' no existe", entityName, id);

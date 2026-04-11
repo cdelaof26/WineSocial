@@ -40,7 +40,7 @@ public class User extends RepresentationModel<User> {
     /**
      * Birth date
      */
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Schema(description = "Fecha de nacimiento del usuario", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date birthdate;
     
