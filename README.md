@@ -13,6 +13,8 @@ y agregar el nombre de usuario y contraseña.
 
 # Historial de versiones
 
+#### v0.0.7 CRUD de tipos de uva
+
 #### v0.0.6 CRUD de vinos
 
 #### v0.0.5 CRUD tipos de vino
