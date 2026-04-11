@@ -1,6 +1,6 @@
 package com.upm.social.wine.assembler.wine;
 
-import com.upm.social.wine.controller.UserController;
+import com.upm.social.wine.controller.wine.PDOController;
 import com.upm.social.wine.entity.wine.PDO;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PDOModelAssembler extends RepresentationModelAssemblerSupport<PDO, PDO> {
     public PDOModelAssembler() {
-        super(UserController.class, PDO.class);
+        super(PDOController.class, PDO.class);
     }
     
     @Override
     public PDO toModel(PDO entity) {
         entity.add(
             WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(UserController.class).getUser(entity.getId())
+                WebMvcLinkBuilder.methodOn(PDOController.class).getPDO(entity.getId())
             ).withSelfRel()
         );
 

@@ -28,7 +28,7 @@ public class Winery extends RepresentationModel<Winery> {
     private Integer id;
     
     /**
-     * Wine name, it must have between 1 and 128 characters (inclusive)
+     * Winery name, it must have between 1 and 128 characters (inclusive)
      */
     @NotEmpty(message = "El nombre es obligatorio")
     @Schema(description = "Nombre de la bodega", requiredMode = Schema.RequiredMode.REQUIRED)

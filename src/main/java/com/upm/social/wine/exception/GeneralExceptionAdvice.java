@@ -1,4 +1,4 @@
-package com.upm.social.wine.exception.wine;
+package com.upm.social.wine.exception;
 
 import com.upm.social.wine.exception.FieldTooLongException;
 import com.upm.social.wine.exception.ObjectExistsException;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @author cristopher
  */
 @RestControllerAdvice
-public class WineryExceptionAdvice {
+public class GeneralExceptionAdvice {
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage notFoundHandler(ObjectNotFoundException ex) {

@@ -1,7 +1,7 @@
 package com.upm.social.wine.assembler.wine;
 
-import com.upm.social.wine.controller.wine.WineTypeController;
-import com.upm.social.wine.entity.wine.WineType;
+import com.upm.social.wine.controller.wine.WineController;
+import com.upm.social.wine.entity.wine.ReducedWine;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Component;
  * @author cristopher
  */
 @Component
-public class WineTypeModelAssembler extends RepresentationModelAssemblerSupport<WineType, WineType> {
-    public WineTypeModelAssembler() {
-        super(WineTypeController.class, WineType.class);
+public class WineModelAssembler extends RepresentationModelAssemblerSupport<ReducedWine, ReducedWine> {
+    public WineModelAssembler() {
+        super(WineController.class, ReducedWine.class);
     }
     
     @Override
-    public WineType toModel(WineType entity) {
+    public ReducedWine toModel(ReducedWine entity) {
         entity.add(
             WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(WineTypeController.class).getWineType(entity.getId())
+                WebMvcLinkBuilder.methodOn(WineController.class).getWine(entity.getId())
             ).withSelfRel()
         );
 

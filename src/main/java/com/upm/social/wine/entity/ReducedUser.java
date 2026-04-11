@@ -3,7 +3,7 @@ package com.upm.social.wine.entity;
 import org.springframework.hateoas.RepresentationModel;
 
 /**
- * Reduced user model that only contains ID and username
+ * Reduced user model
  * @author cristopher
  */
 public class ReducedUser extends RepresentationModel<ReducedUser> {
